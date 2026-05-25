@@ -181,82 +181,71 @@ function App() {
       </header>
 
       <main>
-        {/* HERO */}
-        <section
-          id="hero"
-          className="relative overflow-hidden px-6 pb-24 pt-36"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50" />
+       {/* HERO */}
+<section id="hero" className="relative overflow-hidden px-6 pb-24 pt-36">
+  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50" />
 
-          <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-blue-400/20 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-400/20 blur-3xl" />
+  <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-blue-400/20 blur-3xl" />
+  <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-purple-400/20 blur-3xl" />
 
-          <div className="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
-            {/* LEFT */}
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/70 px-4 py-2 text-sm font-medium text-blue-700 shadow-sm backdrop-blur">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
-                Platform Absensi Modern
-              </div>
+  <div className="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
+    
+    {/* LEFT - Text Content */}
+    <div className="order-1 lg:order-none">
+      <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/70 px-4 py-2 text-sm font-medium text-blue-700 shadow-sm backdrop-blur">
+        <span className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
+        Platform Absensi Modern
+      </div>
 
-              <h2 className="mt-8 text-5xl font-black leading-tight text-slate-900 md:text-6xl">
-                Sistem Absensi
-                <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Magang Modern
-                </span>
-              </h2>
+      <h2 className="mt-8 text-5xl font-black leading-tight text-slate-900 md:text-6xl">
+        Sistem Absensi
+        <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Magang Modern
+        </span>
+      </h2>
 
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
-                Kelola kehadiran, laporan, dan data peserta magang dengan
-                tampilan modern, cepat, dan responsif.
-              </p>
+      <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
+        Kelola kehadiran, laporan, dan data peserta magang dengan
+        tampilan modern, cepat, dan responsif.
+      </p>
+    </div>
 
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <button className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl">
-                  Mulai Absensi
-                </button>
+    {/* RIGHT - Image + Buttons (di mobile buttons akan pindah ke bawah gambar) */}
+    <div className="order-2 lg:order-none flex flex-col items-center lg:items-start">
+      
+      {/* Gambar */}
+      <div className="relative w-full">
+        <div className="absolute inset-0 rounded-[32px] bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-3xl" />
 
-                <button className="rounded-2xl border border-slate-200 bg-white px-8 py-4 font-semibold text-slate-700 transition hover:scale-105 hover:border-blue-300 hover:bg-blue-50">
-                  Demo Interaktif
-                </button>
-              </div>
+        <div className="relative rounded-[32px] bg-white/50 p-4 shadow-2xl backdrop-blur">
+          <img
+            src={heroImg}
+            alt="Dashboard"
+            className="w-full rounded-3xl object-cover shadow-xl transition duration-500 hover:scale-[1.02]"
+          />
+        </div>
 
-              <div className="mt-12 flex flex-wrap items-center gap-8">
-                <div>
-                  <p className="text-3xl font-black text-slate-900">100+</p>
-                  <p className="text-sm text-slate-500">Peserta Magang</p>
-                </div>
-
-                <div className="h-10 w-px bg-slate-200" />
-
-                <div>
-                  <p className="text-3xl font-black text-slate-900">98%</p>
-                  <p className="text-sm text-slate-500">Tingkat Kepuasan</p>
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT */}
-            <div className="relative">
-              <div className="absolute inset-0 rounded-[32px] bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-3xl" />
-
-              <div className="relative rounded-[32px] bg-white/50 p-4 shadow-2xl backdrop-blur">
-                <img
-                  src={heroImg}
-                  alt="Dashboard"
-                  className="w-full rounded-3xl object-cover shadow-xl transition duration-500 hover:scale-[1.02]"
-                />
-              </div>
-
-              <div className="absolute -right-3 -top-3 rounded-2xl bg-white p-3 shadow-xl">
-                <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
-                  <span className="text-sm font-semibold">Aktif</span>
-                </div>
-              </div>
-            </div>
+        <div className="absolute -right-3 -top-3 rounded-2xl bg-white p-3 shadow-xl">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+            <span className="text-sm font-semibold">Aktif</span>
           </div>
-        </section>
+        </div>
+      </div>
+
+      {/* Buttons - muncul di bawah gambar di mobile */}
+      <div className="mt-8 w-full lg:mt-10 flex flex-col gap-4 sm:flex-row lg:justify-start">
+        <button className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl w-full sm:w-auto">
+          Mulai Absensi
+        </button>
+
+        <button className="rounded-2xl border border-slate-200 bg-white px-8 py-4 font-semibold text-slate-700 transition hover:scale-105 hover:border-blue-300 hover:bg-blue-50 w-full sm:w-auto">
+          Demo Interaktif
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
         {/* ATTENDANCE */}
         <section id="attendance" className="px-6 py-24">
