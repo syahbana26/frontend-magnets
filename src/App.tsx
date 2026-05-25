@@ -1,33 +1,18 @@
-import { useState, useEffect } from 'react'
-import heroImg from '../public/images/magnets.png'
+import { useState } from 'react'
+const heroImg = "/images/magnets.png"
 
 function App() {
   const [count, setCount] = useState(0)
-  const [currentTime, setCurrentTime] = useState(new Date())
   const [showQR, setShowQR] = useState(false)
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
-  const [attendanceRecords, setAttendanceRecords] = useState([
+  const [attendanceRecords] = useState([
     { id: 1, name: 'Ahmad Fauzi', time: '08:00', status: 'Hadir', date: '2026-05-26' },
     { id: 2, name: 'Siti Nurhaliza', time: '08:15', status: 'Hadir', date: '2026-05-26' },
     { id: 3, name: 'Budi Santoso', time: '-', status: 'Izin', date: '2026-05-26' },
   ])
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [])
 
-  const formatTime = (date) => {
-    return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
-  }
-
-  const formatDate = (date) => {
-    return date.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-  }
-
-  const getStatusColor = (status) => {
+const getStatusColor = (status: string) => {
     switch(status) {
       case 'Hadir': return 'bg-green-100 text-green-700'
       case 'Izin': return 'bg-yellow-100 text-yellow-700'
@@ -434,7 +419,7 @@ function App() {
         </div>
       </footer>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;
