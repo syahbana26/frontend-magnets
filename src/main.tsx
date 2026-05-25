@@ -15,7 +15,7 @@ import DashboardStudent from "./pages/users/students/dashboard/page";
 import DashboardTeacher from "./pages/users/teachers/dashboard/page";
 import DashboardSuperAdmin from "./pages/superadmin/dashboard/page";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
