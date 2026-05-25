@@ -11,3 +11,31 @@ body {
   width: 100%;
   min-height: 100vh;
 }
+
+.feature-card-modern {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.feature-card-modern:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 100px 0;
+}
+
+.btn-primary, .btn-secondary {
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
