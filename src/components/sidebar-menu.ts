@@ -3,26 +3,47 @@ import {
   Users,
   Shield,
   ClipboardList,
-  Settings,
+  NotebookPen,
+  Building2,
+  CircleUserRound,
 } from "lucide-react";
 
 export type Role =
-  | "user"
+  | "student"
+  | "teacher"
   | "admin"
   | "superadmin";
 
 export const sidebarMenus = [
   {
     title: "Dashboard",
-    href: "/dashboard",
+    href: "/dashboardStudent",
     icon: LayoutDashboard,
-    roles: ["user", "admin", "superadmin"],
+    roles: ["student"],
+  },
+  {
+    title: "Dashboard",
+    href: "/dashboardAdmin",
+    icon: LayoutDashboard,
+    roles: ["admin"],
   },
   {
     title: "Absensi",
-    href: "/absensi",
+    href: "/absensiStudent",
+    icon: NotebookPen,
+    roles: ["student"],
+  },
+  {
+    title: "Perusahaan",
+    href: "/perusahaan",
+    icon: Building2,
+    roles: ["student"],
+  },
+  {
+    title: "Jurnal",
+    href: "/jurnalstudent",
     icon: ClipboardList,
-    roles: ["user"],
+    roles: ["student"],
   },
   {
     title: "Data User",
@@ -37,9 +58,9 @@ export const sidebarMenus = [
     roles: ["superadmin"],
   },
   {
-    title: "Pengaturan",
-    href: "/settings",
-    icon: Settings,
-    roles: ["user", "admin", "superadmin"],
+    title: "Profile",
+    href: "/profileStudent",
+    icon: CircleUserRound,
+    roles: ["student", "admin", "superadmin"],
   },
 ];

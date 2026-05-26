@@ -1,26 +1,25 @@
-import { useState } from "react";
 import Sidebar from "../../../../components/sidebar";
 
 export default function DashboardTeacher() {
-const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Sidebar 
-        role="admin" 
-        isOpen={isSidebarOpen} 
-        setIsOpen={setIsSidebarOpen} 
-      />
-
-      {/* Main Content - Mengikuti lebar sidebar */}
-      <main className={`transition-all duration-300 min-h-screen pb-20 lg:pb-6
-        ${isSidebarOpen ? "lg:ml-64" : "lg:ml-20"}`}>
-        
-        <div className="p-4 sm:p-6 lg:p-8">
-          <h1 className="text-2xl font-semibold mb-6">Teacher Page</h1>
-          {/* Konten kamu */}
-        </div>
-      </main>
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+      
+      {/* Content wrapper - ini penting! */}
+      <div className="flex-1">
+        <main className="min-h-screen">
+          <div className="p-4 sm:p-6 lg:p-8">
+            <h1 className="text-2xl font-semibold mb-6">Teacher Dashboard</h1>
+            {/* Konten kamu di sini */}
+            
+            {/* Contoh konten */}
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <p>Welcome to Teacher Dashboard!</p>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

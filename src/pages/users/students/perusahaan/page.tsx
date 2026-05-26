@@ -1,6 +1,6 @@
-import Sidebar from "../../../components/sidebar";
+import Sidebar from "../../../../components/sidebar";
 
-export default function DashboardSuperAdmin() {
+export default function ListPerusahaan() {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -10,12 +10,12 @@ export default function DashboardSuperAdmin() {
       <div className="flex-1">
         <main className="min-h-screen">
           <div className="p-4 sm:p-6 lg:p-8">
-            <h1 className="text-2xl font-semibold mb-6">Super Admin Dashboard</h1>
+            <h1 className="text-2xl font-semibold mb-6">List perusahaan</h1>
             {/* Konten kamu di sini */}
             
             {/* Contoh konten */}
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <p>Welcome to Super Admin Dashboard!</p>
+              <p>Welcome to list Perusahaan!</p>
             </div>
           </div>
         </main>

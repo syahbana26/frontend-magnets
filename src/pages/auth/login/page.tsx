@@ -23,9 +23,16 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  // ✅ dummy user (SIMULASI DATABASE)
+  const users = [
+    { username: 'ali', password: '123', role: 'student' },
+    { username: 'admin', password: 'admin123', role: 'admin' },
+  ];
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // validation
     if (!username.trim()) {
       setError('Username tidak boleh kosong');
       return;
@@ -39,27 +46,40 @@ export default function Login() {
     setError('');
     setIsLoading(true);
 
-    // Simulasi Login
     setTimeout(() => {
-      if (username === 'admin' && password === 'demo123') {
-        setIsLoading(false);
+      // 🔥 cari user
+      const foundUser = users.find(
+        (u) => u.username === username && u.password === password
+      );
 
-        // Tampilkan popup sukses
-        setShowSuccess(true);
-
-        // Reset form
-        setUsername('');
-        setPassword('');
-
-        // Redirect setelah popup tampil
-        setTimeout(() => {
-          navigate('/dashboardStudent');
-        }, 1800);
-      } else {
+      if (!foundUser) {
         setError('Username atau password salah');
         setIsLoading(false);
+        return;
       }
-    }, 1500);
+
+      // 🔥 SIMPAN USER (INI KUNCI UTAMA SIDEBAR)
+      localStorage.setItem('user', JSON.stringify(foundUser));
+      
+  console.log("LOGIN FOUND USER:", foundUser);
+
+      // UI state
+      setIsLoading(false);
+      setShowSuccess(true);
+
+      // reset form
+      setUsername('');
+      setPassword('');
+
+      // 🔥 redirect berdasarkan role
+      setTimeout(() => {
+        if (foundUser.role === 'admin') {
+          navigate('/dashboardAdmin');
+        } else {
+          navigate('/dashboardStudent');
+        }
+      }, 2000);
+    }, 1200);
   };
 
   const handleInputChange =
@@ -69,9 +89,10 @@ export default function Login() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 flex items-center justify-center p-3">
         <div className="w-full max-w-md">
-          <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-10 border border-gray-100 relative overflow-hidden">
+          <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-8 border border-gray-100">
+            
             {/* Header */}
             <div className="flex flex-col items-center text-center mb-6">
               <img
@@ -86,13 +107,11 @@ export default function Login() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
+
               {/* Username */}
               <div>
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
+                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
                   Username
                 </label>
 
@@ -102,12 +121,11 @@ export default function Login() {
                   </div>
 
                   <input
-                    id="username"
                     type="text"
                     value={username}
                     onChange={handleInputChange(setUsername)}
                     disabled={isLoading}
-                    className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:bg-white transition-all duration-200 text-gray-900 placeholder:text-gray-400"
+                    className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:bg-white transition-all duration-200 text-gray-900 placeholder:text-gray-400"
                     placeholder="Masukkan username"
                   />
                 </div>
@@ -115,10 +133,7 @@ export default function Login() {
 
               {/* Password */}
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
+                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
                   Password
                 </label>
 
@@ -128,43 +143,38 @@ export default function Login() {
                   </div>
 
                   <input
-                    id="password"
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={handleInputChange(setPassword)}
                     disabled={isLoading}
-                    className="w-full pl-11 pr-12 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:bg-white transition-all duration-200 text-gray-900 placeholder:text-gray-400"
+                    className="w-full pl-11 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:bg-white transition-all duration-200 text-gray-900 placeholder:text-gray-400"
                     placeholder="Masukkan password"
                   />
 
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
-                    {showPassword ? (
-                      <EyeOff size={20} />
-                    ) : (
-                      <Eye size={20} />
-                    )}
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
               </div>
 
-              {/* Error Message */}
+              {/* Error */}
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl flex items-start gap-3 animate-shake">
-                  <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <div className="bg-red-50 border border-red-200 text-red-700 px-3.5 py-2.5 rounded-2xl flex items-start gap-3 animate-shake">
+                  <AlertCircle className="w-5 h-5 mt-0.5" />
                   <span className="text-sm">{error}</span>
                 </div>
               )}
 
-              {/* Submit Button */}
+              {/* Button */}
               <button
                 type="submit"
                 disabled={isLoading}
                 className={`
-                  w-full py-4 rounded-2xl font-semibold text-base
+                  w-full py-3.5 rounded-2xl font-semibold text-base
                   flex items-center justify-center gap-3
                   transition-all duration-300
                   ${
@@ -178,26 +188,23 @@ export default function Login() {
                 {isLoading ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    <span>Memproses...</span>
+                    <span>Memproses login...</span>
                   </>
                 ) : (
                   <>
                     <LogIn className="w-5 h-5" />
-                    <span>Masuk</span>
+                    <span>Login</span>
                   </>
                 )}
               </button>
             </form>
 
             {/* Footer */}
-            <div className="mt-6 text-center">
+            <div className="mt-5 text-center">
               <p className="text-sm text-gray-500">
                 Belum punya akun?{' '}
-                <Link
-                  to="/register"
-                  className="font-medium text-blue-600 hover:underline"
-                >
-                  Daftar sekarang
+                <Link to="/register" className="text-blue-600 hover:underline">
+                  Daftar di sini
                 </Link>
               </p>
             </div>
@@ -205,7 +212,7 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Popup Success */}
+      {/* Success Popup (UI tetap sama) */}
       {showSuccess && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fadeIn">
           <div className="bg-white rounded-3xl px-8 py-7 shadow-2xl w-[90%] max-w-sm text-center animate-scaleIn">
@@ -220,7 +227,7 @@ export default function Login() {
             </h2>
 
             <p className="text-gray-500 mt-2">
-              Selamat datang kembali, {username}
+              Mengalihkan ke dashboard...
             </p>
 
             <div className="mt-5">
@@ -235,62 +242,31 @@ export default function Login() {
       {/* Animation */}
       <style>{`
         @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
         @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0.85);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
+          from { opacity: 0; transform: scale(0.85); }
+          to { opacity: 1; transform: scale(1); }
         }
 
         @keyframes progress {
-          from {
-            width: 0%;
-          }
-          to {
-            width: 100%;
-          }
+          from { width: 0%; }
+          to { width: 100%; }
         }
 
         @keyframes shake {
-          0%, 100% {
-            transform: translateX(0);
-          }
-          25% {
-            transform: translateX(-5px);
-          }
-          75% {
-            transform: translateX(5px);
-          }
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
         }
 
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease;
-        }
-
-        .animate-scaleIn {
-          animation: scaleIn 0.3s ease;
-        }
-
-        .animate-progress {
-          animation: progress 1.8s linear forwards;
-        }
-
-        .animate-shake {
-          animation: shake 0.3s ease;
-        }
+        .animate-fadeIn { animation: fadeIn 0.3s ease; }
+        .animate-scaleIn { animation: scaleIn 0.3s ease; }
+        .animate-progress { animation: progress 2s linear forwards; }
+        .animate-shake { animation: shake 0.3s ease; }
       `}</style>
     </>
   );
-}
+}   

@@ -1,49 +1,75 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { sidebarMenus } from "./sidebar-menu";
-import type { Role } from "./sidebar-menu";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Pin, PinOff } from "lucide-react";
+import { useState, useEffect } from "react";
 
-interface SidebarProps {
-  role: Role;
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
-}
-
-export default function Sidebar({ role, isOpen, setIsOpen }: SidebarProps) {
+export default function Sidebar() {
   const location = useLocation();
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPinned, setIsPinned] = useState(true);
 
+  // 🔥 FIX: role hanya dari localStorage
+  const [role, setRole] = useState<string>("");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("user");
+
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setRole(parsed?.role || "");
+      } catch (err) {
+        console.error("Invalid user data in localStorage");
+        setRole("");
+      }
+    }
+  }, []);
+
+  const togglePinned = () => {
+    const newPinned = !isPinned;
+    setIsPinned(newPinned);
+    localStorage.setItem("sidebarPinned", JSON.stringify(newPinned));
+  };
+
+  const shouldBeOpen = isPinned || (!isPinned && isHovered);
+  const sidebarWidth = shouldBeOpen ? "w-64" : "w-20";
+
+  // 🔥 FIX: filter aman
   const filteredMenus = sidebarMenus.filter((menu) =>
-    menu.roles.includes(role)
+    menu.roles.includes(role as any)
   );
+
+  console.log("ROLE FROM STORAGE:", role);
 
   return (
     <>
+      {/* Desktop Sidebar */}
       <aside
-        className={`hidden lg:flex h-screen border-r border-gray-200 bg-white flex-col fixed transition-all duration-300 ${
-          isOpen ? "w-64" : "w-20"
-        }`}
+        className={`hidden lg:flex h-screen border-r border-gray-200 bg-white flex-col fixed transition-all duration-300 z-30 ${sidebarWidth}`}
+        onMouseEnter={() => !isPinned && setIsHovered(true)}
+        onMouseLeave={() => !isPinned && setIsHovered(false)}
       >
-        {/* Header yang Diperbaiki */}
-        <div className="px-7 pt-6 pb-6 flex items-center border-b">
-          <div className="flex-1 flex items-center min-w-0">
-            <img 
-              src={isOpen ? "/images/magnets.png" : "/images/icon-magnets.png"} 
-              alt="MagNetS"
-              className={`transition-all duration-300 object-contain 
-                ${isOpen ? "h-[68px] w-auto" : "h-9 w-9"}`} 
-            />
-          </div>
+        {/* Header */}
+        <div
+          className={`pt-6 pb-6 flex items-center border-b ${
+            shouldBeOpen ? "px-10 justify-start" : "justify-center"
+          }`}
+        >
+          <img
+            src="/images/icon-magnets.png"
+            alt="MagNetS"
+            className="h-10 w-10 object-contain"
+          />
 
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="ml-3 p-2 hover:bg-gray-100 rounded-xl transition-colors flex-shrink-0"
-          >
-            {isOpen ? <ChevronLeft size={24} /> : <ChevronRight size={24} />}
-          </button>
+          {shouldBeOpen && (
+            <span className="ml-3 text-xl font-bold text-gray-800">
+              MagNetS
+            </span>
+          )}
         </div>
 
-        {/* Menu (tidak diubah) */}
-        <nav className="flex-1 px-3 pt-6">
+        {/* Menu */}
+        <nav className="flex-1 px-3 pt-6 overflow-y-auto">
           <div className="space-y-1">
             {filteredMenus.map((menu) => {
               const Icon = menu.icon;
@@ -55,28 +81,67 @@ export default function Sidebar({ role, isOpen, setIsOpen }: SidebarProps) {
                   to={menu.href}
                   className={({ isActive }) =>
                     `group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-all
-                     ${isActive ? "bg-blue-600 text-white" : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"}
-                     ${!isOpen ? "justify-center px-3" : ""}`
+                    ${
+                      isActive
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    }
+                    ${!shouldBeOpen ? "justify-center px-3" : ""}`
                   }
+                  title={!shouldBeOpen ? menu.title : ""}
                 >
-                  <Icon size={22} className={isActive ? "text-white" : ""} />
-                  {isOpen && <span>{menu.title}</span>}
+                  <Icon
+                    size={22}
+                    className={`${
+                      isActive ? "text-white" : "text-gray-500"
+                    } flex-shrink-0`}
+                  />
+                  {shouldBeOpen && (
+                    <span className="truncate">{menu.title}</span>
+                  )}
                 </NavLink>
               );
             })}
           </div>
         </nav>
 
-        {isOpen && (
-          <div className="p-4 border-t border-gray-100 mt-auto">
-            <p className="text-xs text-gray-400">v1.0.0</p>
-          </div>
-        )}
+        {/* Footer */}
+        <div className="p-4 border-t border-gray-100 mt-auto">
+          {shouldBeOpen && (
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-gray-400">v1.0.0</p>
+              <button
+                onClick={togglePinned}
+                className={`p-1.5 rounded-lg transition-all hover:bg-gray-100 ${
+                  isPinned ? "text-blue-600" : "text-gray-400"
+                }`}
+              >
+                {isPinned ? <Pin size={16} /> : <PinOff size={16} />}
+              </button>
+            </div>
+          )}
+
+          {!shouldBeOpen && (
+            <div className="flex justify-center">
+              <button
+                onClick={togglePinned}
+                className="p-2 rounded-lg transition-all hover:bg-gray-100 text-gray-400"
+              >
+                <PinOff size={18} />
+              </button>
+            </div>
+          )}
+        </div>
       </aside>
 
+      {/* Spacer */}
+      <div
+        className={`hidden lg:block transition-all duration-300 ${sidebarWidth}`}
+      />
+
       {/* Mobile Bottom Nav */}
-      <nav className="lg:hidden fixed -bottom-1 left-0 right-0 bg-white border-t z-40">
-        <div className="flex justify-around py-2">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 shadow-lg">
+        <div className="flex justify-around py-2 px-2">
           {filteredMenus.map((menu) => {
             const Icon = menu.icon;
             const isActive = location.pathname === menu.href;
@@ -85,12 +150,20 @@ export default function Sidebar({ role, isOpen, setIsOpen }: SidebarProps) {
               <NavLink
                 key={menu.href}
                 to={menu.href}
-                className={`flex flex-col items-center py-0.5 ${
-                  isActive ? "text-blue-600" : "text-gray-500"
-                }`}
+                className={({ isActive }) =>
+                  `flex flex-col items-center py-1 px-3 rounded-lg transition-all duration-200
+                  ${
+                    isActive
+                      ? "text-blue-600 bg-blue-50"
+                      : "text-gray-500 hover:text-blue-600 hover:bg-gray-50"
+                  }`
+                }
               >
-                <Icon size={20} />
-                <span className="text-[9px] mt-0.5">
+                <Icon
+                  size={22}
+                  className={isActive ? "text-blue-600" : "text-gray-500"}
+                />
+                <span className="text-[10px] mt-1 font-medium">
                   {menu.title}
                 </span>
               </NavLink>

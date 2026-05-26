@@ -212,11 +212,9 @@ function App() {
 
     {/* RIGHT - Image + Buttons (di mobile buttons akan pindah ke bawah gambar) */}
     <div className="order-2 lg:order-none flex flex-col items-center lg:items-start">
-      
       {/* Gambar */}
       <div className="relative w-full">
         <div className="absolute inset-0 rounded-[32px] bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-3xl" />
-
         <div className="relative rounded-[32px] bg-white/50 p-4 shadow-2xl backdrop-blur">
           <img
             src={heroImg}
