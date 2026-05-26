@@ -23,10 +23,11 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  // ✅ dummy user (SIMULASI DATABASE)
   const users = [
-    { username: 'ali', password: '123', role: 'student' },
+    { username: 'students', password: '123456', role: 'student' },
+    { username: 'teachers', password: '123456', role: 'teacher' },
     { username: 'admin', password: 'admin123', role: 'admin' },
+    { username: 'super', password: 'super123', role: 'superadmin' },
   ];
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

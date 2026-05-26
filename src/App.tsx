@@ -233,12 +233,12 @@ function App() {
 
       {/* Buttons - muncul di bawah gambar di mobile */}
       <div className="mt-8 w-full lg:mt-10 flex flex-col gap-4 sm:flex-row lg:justify-start">
-        <button className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl w-full sm:w-auto">
-          Mulai Absensi
+        <button className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 font-semibold text-white shadow-lg transition hover:scale-105 hover:shadow-xl w-full sm:w-auto" onClick={() => navigate('/register')}>
+          Daftar Sekarang
         </button>
 
-        <button className="rounded-2xl border border-slate-200 bg-white px-8 py-4 font-semibold text-slate-700 transition hover:scale-105 hover:border-blue-300 hover:bg-blue-50 w-full sm:w-auto">
-          Demo Interaktif
+        <button className="rounded-2xl border border-slate-200 bg-white px-8 py-4 font-semibold text-slate-700 transition hover:scale-105 hover:border-blue-300 hover:bg-blue-50 w-full sm:w-auto" onClick={() => navigate('/login')}>
+          Masuk
         </button>
       </div>
     </div>
