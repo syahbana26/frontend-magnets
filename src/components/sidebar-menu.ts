@@ -6,6 +6,7 @@ import {
   Building2,
   CircleUserRound,
   GraduationCap,
+  House,
 } from "lucide-react";
 
 export type Role =
@@ -20,7 +21,7 @@ export const sidebarMenus = [
   {
     title: "Dashboard",
     href: "/dashboardStudent",
-    icon: LayoutDashboard,
+    icon: House,
     roles: ["student"],
   },
   {

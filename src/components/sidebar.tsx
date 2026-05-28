@@ -139,7 +139,7 @@ export default function Sidebar() {
         className={`hidden lg:block transition-all duration-300 ${sidebarWidth}`}
       />
 
-      {/* Mobile Bottom Nav */}
+      {/* Mobile Bottom Nav - MODIFIED */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 shadow-lg">
         <div className="flex justify-around py-2 px-2">
           {filteredMenus.map((menu) => {
@@ -151,19 +151,21 @@ export default function Sidebar() {
                 key={menu.href}
                 to={menu.href}
                 className={({ isActive }) =>
-                  `flex flex-col items-center py-1 px-3 rounded-lg transition-all duration-200
+                  `flex flex-col items-center py-2 px-3 rounded-lg transition-all duration-200
                   ${
                     isActive
-                      ? "text-blue-600 bg-blue-50"
+                      ? "bg-blue-600 text-white" // Changed from text-blue-600 bg-blue-50 to bg-blue-600 text-white
                       : "text-gray-500 hover:text-blue-600 hover:bg-gray-50"
                   }`
                 }
               >
                 <Icon
                   size={22}
-                  className={isActive ? "text-blue-600" : "text-gray-500"}
+                  className={isActive ? "text-white" : "text-gray-500"} // Changed from text-blue-600 to text-white
                 />
-                <span className="text-[10px] mt-1 font-medium">
+                <span className={`text-[10px] mt-1 font-medium ${
+                  isActive ? "text-white" : ""
+                }`}> {/* Added white text for active state */}
                   {menu.title}
                 </span>
               </NavLink>
