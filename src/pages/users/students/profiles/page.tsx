@@ -1,5 +1,5 @@
 import Sidebar from "../../../../components/sidebar";
-import { User, Mail, Phone, MapPin, Calendar, BookOpen, Award, Clock, Edit2, Save, X, Settings, LogOut, Bell, Shield } from "lucide-react";
+import { User, Mail, Phone, MapPin, Edit2, Save, X, Settings, LogOut, Bell, Shield } from "lucide-react";
 import { useState } from "react";
 
 export default function ProfileStudent() {
@@ -44,12 +44,6 @@ export default function ProfileStudent() {
     });
   };
 
-  const statsData = [
-    { icon: BookOpen, label: "Courses", value: "8", color: "from-blue-500 to-blue-600" },
-    { icon: Award, label: "Certificates", value: "12", color: "from-purple-500 to-purple-600" },
-    { icon: Clock, label: "Hours Learned", value: "248", color: "from-green-500 to-green-600" },
-    { icon: Calendar, label: "Days Active", value: "156", color: "from-orange-500 to-orange-600" }
-  ];
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
@@ -106,19 +100,6 @@ export default function ProfileStudent() {
                   </button>
                 </div>
               </div>
-            </div>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              {statsData.map((stat, index) => (
-                <div key={index} className="bg-white rounded-xl shadow-lg p-4 sm:p-6 hover:shadow-xl transition-shadow">
-                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-r ${stat.color} flex items-center justify-center mb-3`}>
-                    <stat.icon className="text-white" size={20} />
-                  </div>
-                  <p className="text-gray-600 text-sm mb-1">{stat.label}</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-gray-900">{stat.value}</p>
-                </div>
-              ))}
             </div>
 
             {/* Personal Information Card */}
