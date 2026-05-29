@@ -156,7 +156,6 @@ export default function ProfileStudent() {
                   <User size={18} className="text-blue-600 sm:w-5 sm:h-5" />
                   Informasi Lengkap
                 </h2>
-                <p className="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Detail data diri siswa</p>
               </div>
 
               <div className="p-3 sm:p-6">
@@ -249,28 +248,24 @@ export default function ProfileStudent() {
                 {
                   key: "notification",
                   title: "Notifications",
-                  desc: "Receive email notifications",
                   icon: <Bell size={18} className="text-blue-600 sm:w-5 sm:h-5" />,
                   bg: "bg-blue-100",
                 },
                 {
                   key: "privacy",
                   title: "Privacy Mode",
-                  desc: "Hide online status",
                   icon: <Shield size={18} className="text-purple-600 sm:w-5 sm:h-5" />,
                   bg: "bg-purple-100",
                 },
                 {
                   key: "autoSave",
                   title: "Auto Save",
-                  desc: "Automatically save changes",
                   icon: <Save size={18} className="text-green-600 sm:w-5 sm:h-5" />,
                   bg: "bg-green-100",
                 },
                 {
                   key: "twoFactor",
                   title: "Two-Factor Auth",
-                  desc: "Extra security layer",
                   icon: <Shield size={18} className="text-orange-600 sm:w-5 sm:h-5" />,
                   bg: "bg-orange-100",
                 },
@@ -287,10 +282,6 @@ export default function ProfileStudent() {
                     <div>
                       <p className="font-semibold text-gray-900 text-sm sm:text-base">
                         {item.title}
-                      </p>
-
-                      <p className="text-xs sm:text-sm text-gray-500">
-                        {item.desc}
                       </p>
                     </div>
                   </div>

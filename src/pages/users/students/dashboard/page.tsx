@@ -1,5 +1,5 @@
 import Sidebar from "../../../../components/sidebar";
-import { Bell, GraduationCap, BookOpen, CheckCircle, LogOut, Calendar, Clock, Filter, PieChart, Building2 } from "lucide-react";
+import { Bell, BookOpen, CheckCircle, LogOut, Calendar, Clock, Filter, PieChart, Building2, ShieldUser } from "lucide-react";
 import { useState } from "react";
 
 export default function DashboardStudent() {
@@ -18,7 +18,7 @@ export default function DashboardStudent() {
     name: "Muhammad Rizki",
     username: "muhammad.rizki",
     dudi: "PT. Syntech Solutions",
-    class: "IX",
+    class: "Bapak Budi",
     jurusan: "Rekayasa Perangkat Lunak",
   };
 
@@ -232,8 +232,8 @@ export default function DashboardStudent() {
                     {/* Kelas */}
                     <div className="flex items-center justify-between sm:block border-b sm:border-0 pb-2 sm:pb-0 border-gray-100">
                       <div className="flex items-center gap-2">
-                        <GraduationCap size={14} className="text-gray-400" />
-                        <p className="text-gray-400 text-xs">Kelas</p>
+                        <ShieldUser size={14} className="text-gray-400" />
+                        <p className="text-gray-400 text-xs">Pembimbing</p>
                       </div>
                       <p className="text-gray-800 font-semibold text-sm sm:text-base sm:mt-1">
                         {studentData.class}
